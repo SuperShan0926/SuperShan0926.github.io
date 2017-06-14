@@ -1,0 +1,760 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="KMP算法是一种子串查找算法，为了降低重复查找的冗余。所谓子串，就是在母串中存在k和n，使得Ak，…，An和子串相等。  12abbb,abbbbc =&amp;gt; trueabbb,abbcbc =&amp;gt; false 朴素模式匹配算法==维护2个变量i，j表示主串第i个字符和子串第j个字符。若不等，j归零，i回溯到第一次比较的位置的下一位，再继续比较。== 1234567891011121314">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构基础（2）KMP详解">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/KMP详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="KMP算法是一种子串查找算法，为了降低重复查找的冗余。所谓子串，就是在母串中存在k和n，使得Ak，…，An和子串相等。  12abbb,abbbbc =&amp;gt; trueabbb,abbcbc =&amp;gt; false 朴素模式匹配算法==维护2个变量i，j表示主串第i个字符和子串第j个字符。若不等，j归零，i回溯到第一次比较的位置的下一位，再继续比较。== 1234567891011121314">
+<meta property="og:updated_time" content="2017-06-14T16:43:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构基础（2）KMP详解">
+<meta name="twitter:description" content="KMP算法是一种子串查找算法，为了降低重复查找的冗余。所谓子串，就是在母串中存在k和n，使得Ak，…，An和子串相等。  12abbb,abbbbc =&amp;gt; trueabbb,abbcbc =&amp;gt; false 朴素模式匹配算法==维护2个变量i，j表示主串第i个字符和子串第j个字符。若不等，j归零，i回溯到第一次比较的位置的下一位，再继续比较。== 1234567891011121314">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/15/KMP详解/"/>
+
+
+
+
+
+  <title> 数据结构基础（2）KMP详解 | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/KMP详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="qiuqiu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构基础（2）KMP详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T00:41:13+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构基础/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>KMP算法是一种子串查找算法，为了降低重复查找的冗余。所谓子串，就是在母串中存在k和n，使得Ak，…，An和子串相等。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">abbb,abbbbc =&gt; true</div><div class="line">abbb,abbcbc =&gt; false</div></pre></td></tr></table></figure>
+<h3 id="朴素模式匹配算法"><a href="#朴素模式匹配算法" class="headerlink" title="朴素模式匹配算法"></a>朴素模式匹配算法</h3><p>==维护2个变量i，j表示主串第i个字符和子串第j个字符。若不等，j归零，i回溯到第一次比较的位置的下一位，再继续比较。==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// | 表示不匹配。</div><div class="line">a b c d e f g</div><div class="line">            |             1</div><div class="line">a b c d e f x</div><div class="line"></div><div class="line">a b c d e f g</div><div class="line">  |                       2</div><div class="line">  a b c d e f x</div><div class="line"></div><div class="line">a b c d e f g</div><div class="line">    |                     3</div><div class="line">    a b c d e f x</div><div class="line">    </div><div class="line">    .....</div><div class="line">    </div><div class="line">a b c d e f g   </div><div class="line">            |             6            </div><div class="line">            a b c d e f x</div></pre></td></tr></table></figure>
+<p>缺点：显然前面匹配的<code>abcdef</code>已经互不相等了，步骤<code>2,3,4,5</code>都是多余的，应该直接跳至第六步。</p>
+<h3 id="朴素匹配代码"><a href="#朴素匹配代码" class="headerlink" title="朴素匹配代码"></a>朴素匹配代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function findSubStr(sub,sup)&#123;</div><div class="line">  let i=0,j = 0;</div><div class="line">  while(j&lt;sub.length&amp;&amp;i&lt;sup.length)&#123;</div><div class="line">    if(sub[j] == sup[i])&#123;</div><div class="line">        ++j;</div><div class="line">        ++i;</div><div class="line">    &#125;else&#123;</div><div class="line">    if(i+sub.length == sup.length)return false;</div><div class="line">    j = 0;</div><div class="line">    i = i-j+1;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return true</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="KMP前言"><a href="#KMP前言" class="headerlink" title="KMP前言"></a>KMP前言</h3><p>介绍此算法前，考虑如下情况:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a b c a b c a b x</div><div class="line">          |</div><div class="line">a b c a b x</div></pre></td></tr></table></figure></p>
+<p>在i=j=5时出现了不匹配。若前面已匹配字符无重复(例如<code>abcde</code>),应该直接跳至i=5，j=0比较，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a b c d e c a b x</div><div class="line">          |</div><div class="line">          a b c d e x</div></pre></td></tr></table></figure></p>
+<p>==但是！当已匹配字符出现重复时，显然直接调至i=5会得到错误结果，事实上，因为<code>abcab</code>存在重复字符<code>ab</code>,<code>ab</code>和母串中的前两位匹配，故出现第六位(i=5)不匹配时，应该回溯至子串第3位与母串第2个ab后的那个字符比较。==<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//*表示j回溯的位置，此时j=2,i=5</div><div class="line">//0 1 2 3 4 5  ---i</div><div class="line"> a b c a b c a b x</div><div class="line">           *</div><div class="line">       a b c a b x  </div><div class="line">     //0 1 2 3 4 5  ---j</div></pre></td></tr></table></figure></p>
+<p>同理，下例中<code>j=1</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//*表示j回溯的位置，此时j=2,i=5</div><div class="line">//0 1 2 3 4 5    ---i</div><div class="line">  a b c a b c a x </div><div class="line">          *  </div><div class="line">        a b c a x </div><div class="line">      //0 1 2 3 4  ---j</div></pre></td></tr></table></figure></p>
+<p>此例中，已匹配字符<code>abca</code>中，有一个 <code>a</code>重复，故回溯至子串第2位与母串第2个<code>a</code>后的那个字符比较。</p>
+<p>显然，当不匹配时，<code>j</code>回溯的位置应该和==已匹配==子串的前后缀相似度有关。==这也是理解next数组推导的关键==。子串相似度越高，回溯的幅度越小。这里，前缀表示<code>0</code>位置到<code>k</code>位置，后缀表示<code>n</code>位置到<code>len-1</code>位置，显然<code>len-1-n = k-0</code>;且由上例可知:</p>
+<pre><code>无相似   j=0
+1相似    j=1
+2相似    j=2
+</code></pre><h3 id="Next数组及推导"><a href="#Next数组及推导" class="headerlink" title="Next数组及推导"></a>Next数组及推导</h3><p>Next数组维护子串中==前k个字符==的相似度,记为==sim==。当<code>j(j+1长度)</code>检测到不匹配时，j回溯到前j个字符的相似度位置，即Next[j]位置:<code>j=Next[j]</code>;</p>
+<p>==注意:next数组只和子串有关==</p>
+<h4 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h4><p>显然<code>Next[0]=Next[1]=0</code>;</p>
+<p>对于<code>abcabd</code>:</p>
+<pre><code>Next[2]=sim(ab)=0
+Next[3]=sim(abc)=0
+Next[4]=sim(abca)=1
+Next[5]=sim(abcab)=2
+Next[6]=sim(abcab)=0
+</code></pre><p>需要维护2个变量<code>i=1,j=0</code>，<code>i</code>用于循环字符串，<code>j</code>用于和<code>i</code>位置比较并记录相似度。</p>
+<p>显然有下列三种情况</p>
+<p><strong>1. str[i] == str[j]</strong></p>
+<pre><code>此时长度为`i+1`的子字符串`str1`已经相似,则`j++`;得到`Next[i+1]=j`，并叠加`i`,去判断长度为`i+2`的子字符串相似度
+</code></pre><p><strong>2. str[i] != str[j]且j&gt;0</strong></p>
+<p><strong>这里是理解推导的关键部分，==检测到不匹配时j&gt;0，表明0至j-1位均满足<code>str[i]=str[j]</code>(长度为<code>j</code>,记为<code>strj</code>)。此时<code>strj</code>中若相似度不为<code>0</code>，证明已匹配部分存在相同前后缀，若将j回溯到0则会重复比较带来冗余;只需回溯到相似度+1的位置再进行比较。== 参考之前KMP前言部分</strong></p>
+<p><strong>3. str[i] != str[j]且j==0</strong></p>
+<pre><code>此时str[j]==str[0],前缀第一位字符就不等，故不存在已匹配前缀，Next[i+1]=0,并i++向后循环。
+</code></pre><p>注意:==KMP前言==部分的回溯是指子字符串<code>abcabx</code>与母串<code>abcabcabx</code>不匹配时<code>j</code>的回溯。而==next数组推导==部分是<code>abcabx</code>字符串中前后缀匹配失败时<code>j</code>的回溯。千万不能混淆。<br>比如对子串<code>ababaa</code>,<code>j=0,i=2</code>时向后匹配直到<code>j=3,i=5</code>时不匹配。此时需对j进行回溯，此时已匹配部分aba，故j=next[3]=1。</p>
+<p><code>解释:串aba存在前缀a(1)与后缀a(2)相等。而a(2)=a(3)(通过比较相等),故存在a(1) = a(3),再接着比较下一位(j=1,i=5)是否相等，若相等,构成新的前后缀ab(这里是不相等)</code></p>
+<p><code>再如例 (agctagc)(agctagc)t，显然括号内都相等，此时i=13 j=6。下一位a!=t。agctagca和agctagct不是前后缀，故匹配失效。
+但已匹配agctagc中存在子前后缀
+agc(1)=agc(2)。而agc(2)=agc(4)(比较得到相等)。故agc(1)=agc(4),再比较下一位。得t(1)=t(3)(括号内表示第i个串)，故agct(1)=agtc(3),构成新的前后缀。</code></p>
+<h3 id="Next数组代码"><a href="#Next数组代码" class="headerlink" title="Next数组代码"></a>Next数组代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">function getNext(str)&#123;</div><div class="line">  var len = str.length;</div><div class="line">  var j = 0; </div><div class="line">  //表示前i个公共字串的最大长度.next[i]也表示前i个字符中公共子串的最大长度。第一位为0，</div><div class="line">  //前i位的下标为i-1,存在next[i]中，=&gt;前4位存在next[4]中，但前四位下标0，1，2，3，i此时=3，故存在next[3+1]中。</div><div class="line">  //</div><div class="line">  var i = 1; //下标，i=1表示从第二位开始。实际长度i+1。</div><div class="line">  var next = [0,0];//显然next[0]=0，next[1]=0，</div><div class="line">  while(i&lt;len)&#123;</div><div class="line">    //第一种情况，设长度为i的子字符串为str1属于str,j=0表str1第一个字母，和子字符串str1最后一个字母不等，</div><div class="line">    //此时j=0。必不可能出现公共前后缀。直接设置next[i+1] = 0；</div><div class="line">    //必不可能出现</div><div class="line">    if(j==0&amp;&amp;str[i]!==str[j])&#123;next[i+1]=0;i++&#125;</div><div class="line">    //第二种情况，j&gt;0表示前面有相同的后缀了，比如j=4说明前3位相同，第4位不匹配了，不能构成公共前后缀，回溯j即可。</div><div class="line">    else if(j&gt;0&amp;&amp;str[i]!==str[j])j=next[j];</div><div class="line">    else&#123;</div><div class="line">      j++;</div><div class="line">      next[i+1] = j;</div><div class="line">      i++;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return next;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="KMP的js版本实现"><a href="#KMP的js版本实现" class="headerlink" title="KMP的js版本实现"></a>KMP的js版本实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function findSubStrKMP(sub,sup)&#123;</div><div class="line">    let j = 0,lenSub= sub.length,lenSup = sup.length;</div><div class="line">    //next数组长度比子串长度大1所以舍去最后一个元素。</div><div class="line">    var next = getNext3(sub).slice(0,-1);</div><div class="line">    for(let i=0;i&lt;lenSup;i++)&#123;</div><div class="line">      if(sub[j]==sup[i])&#123;</div><div class="line">      //相等且子串循环到末尾，表明匹配</div><div class="line">        if(j==lenSub-1)&#123;</div><div class="line">          return true;</div><div class="line">        &#125;</div><div class="line">        j++;</div><div class="line">      &#125;</div><div class="line">      //j&gt;0,j回溯i保持不变,因为每个循环加1这里要减1。</div><div class="line">      else if(j&gt;0)&#123;j = next[j];i--&#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/11/数据结构基础（1）线性表数组/" rel="next" title="数据结构基础（1）线性表 数组">
+                <i class="fa fa-chevron-left"></i> 数据结构基础（1）线性表 数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="qiuqiu" />
+          <p class="site-author-name" itemprop="name">qiuqiu</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素模式匹配算法"><span class="nav-number">1.</span> <span class="nav-text">朴素模式匹配算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素匹配代码"><span class="nav-number">2.</span> <span class="nav-text">朴素匹配代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP前言"><span class="nav-number">3.</span> <span class="nav-text">KMP前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next数组及推导"><span class="nav-number">4.</span> <span class="nav-text">Next数组及推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#推导过程"><span class="nav-number">4.1.</span> <span class="nav-text">推导过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next数组代码"><span class="nav-number">5.</span> <span class="nav-text">Next数组代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP的js版本实现"><span class="nav-number">6.</span> <span class="nav-text">KMP的js版本实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qiuqiu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
