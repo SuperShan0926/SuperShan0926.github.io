@@ -92,9 +92,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="各类排序浅析(JS版本)">
 <meta property="og:url" content="http://yoursite.com/2017/06/30/各类排序浅析-JS版本/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="球球的窝">
 <meta property="og:description" content="各类排序浅析(JS版本)排序复杂度   排序方法 平均情况 最好情况 最坏情况 辅助空间 稳定性      冒泡排序 O(n2) O(n) O(n2) O(1) 稳定   简单选择排序 O(n2) O(n2) O(n2) O(1) 稳定   直接插入排序 O(n2) O(n) O(n2) O(1) 稳定   希尔排序 O(nlogn)~O(n2) O(n1.3) O(n2) O(1) 不稳定">
-<meta property="og:updated_time" content="2017-06-30T03:32:33.000Z">
+<meta property="og:updated_time" content="2017-06-30T15:49:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各类排序浅析(JS版本)">
 <meta name="twitter:description" content="各类排序浅析(JS版本)排序复杂度   排序方法 平均情况 最好情况 最坏情况 辅助空间 稳定性      冒泡排序 O(n2) O(n) O(n2) O(1) 稳定   简单选择排序 O(n2) O(n2) O(n2) O(1) 稳定   直接插入排序 O(n2) O(n) O(n2) O(1) 稳定   希尔排序 O(nlogn)~O(n2) O(n1.3) O(n2) O(1) 不稳定">
@@ -131,7 +131,7 @@
 
 
 
-  <title> 各类排序浅析(JS版本) | Hexo </title>
+  <title> 各类排序浅析(JS版本) | 球球的窝 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">球球的窝</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -273,13 +273,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/30/各类排序浅析-JS版本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="qiuqiu">
+      <meta itemprop="name" content="SuperShan">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="球球的窝">
     </span>
 
     
@@ -434,12 +434,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="冒泡排序及其优化"><a href="#冒泡排序及其优化" class="headerlink" title="冒泡排序及其优化"></a>冒泡排序及其优化</h3><h4 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function swap(i,j,arr)&#123;</div><div class="line">  let temp = arr[i];</div><div class="line">  arr[i] = arr[j];</div><div class="line">  arr[j] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function bubbleSort(arr)&#123;</div><div class="line">   for(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">       for(var len=arr.length-1,j=len;j&gt;i;j--)&#123;</div><div class="line">           if(arr[j-1]&gt;arr[j])swap(j-1,j,arr)</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="冒泡排序及其优化"><a href="#冒泡排序及其优化" class="headerlink" title="冒泡排序及其优化"></a>冒泡排序及其优化</h3><h4 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">i,j,arr</span>)</span>&#123;</div><div class="line">  <span class="keyword">let</span> temp = arr[i];</div><div class="line">  arr[i] = arr[j];</div><div class="line">  arr[j] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">   <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">       <span class="keyword">for</span>(<span class="keyword">var</span> len=arr.length<span class="number">-1</span>,j=len;j&gt;i;j--)&#123;</div><div class="line">           <span class="keyword">if</span>(arr[j<span class="number">-1</span>]&gt;arr[j])swap(j<span class="number">-1</span>,j,arr)</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><blockquote>
 <p>试想若待排序序列{2,1,3,4,5,6,7},除了1,2拍完顺序之后无需再比较，则设置一个flag，flag为true才进入大循环，进入之后立马设置为false，只有当小循环比较发现需要交换时，才重新设置为true，因为交换改变了arr的顺序，表示需要进行下一轮大循环；但若小循环一轮下来之后均为false，则表明已经排好，不需要对i再进行循环。</p>
 </blockquote>
 <p><strong>这就是冒泡的最好情况，需要比较n-1+n-2=2n-3次，所以复杂度O(n)。n-2是确保已经有序，代码中是指flag不会变成true的那次循环。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">function swap(i,j,arr)&#123;</div><div class="line">  let temp = arr[i];</div><div class="line">  arr[i] = arr[j];</div><div class="line">  arr[j] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function bubbleSort(arr)&#123;</div><div class="line">   let flag = true;</div><div class="line">   let count = 0;//统计次数</div><div class="line">   for(var i=0;i&lt;arr.length&amp;&amp;flag;i++)&#123;</div><div class="line">       flag = false;</div><div class="line">       for(var len=arr.length-1,j=len;j&gt;i;j--)&#123;</div><div class="line">         count++;</div><div class="line">         if(arr[j-1]&gt;arr[j])&#123;</div><div class="line">         swap(j-1,j,arr);</div><div class="line">           flag = true;</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">   console.log(&apos;比较次数:&apos;,count) </div><div class="line">   return arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bubbleSort([2,1,3,4,5,6,7,8]) </div><div class="line">//比较次数:13</div><div class="line">//[1,2,3,4,5,6,7,8]</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">i,j,arr</span>)</span>&#123;</div><div class="line">  <span class="keyword">let</span> temp = arr[i];</div><div class="line">  arr[i] = arr[j];</div><div class="line">  arr[j] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">   <span class="keyword">let</span> flag = <span class="literal">true</span>;</div><div class="line">   <span class="keyword">let</span> count = <span class="number">0</span>;<span class="comment">//统计次数</span></div><div class="line">   <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length&amp;&amp;flag;i++)&#123;</div><div class="line">       flag = <span class="literal">false</span>;</div><div class="line">       <span class="keyword">for</span>(<span class="keyword">var</span> len=arr.length<span class="number">-1</span>,j=len;j&gt;i;j--)&#123;</div><div class="line">         count++;</div><div class="line">         <span class="keyword">if</span>(arr[j<span class="number">-1</span>]&gt;arr[j])&#123;</div><div class="line">         swap(j<span class="number">-1</span>,j,arr);</div><div class="line">           flag = <span class="literal">true</span>;</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="built_in">console</span>.log(<span class="string">'比较次数:'</span>,count) </div><div class="line">   <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bubbleSort([<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]) </div><div class="line"><span class="comment">//比较次数:13</span></div><div class="line"><span class="comment">//[1,2,3,4,5,6,7,8]</span></div></pre></td></tr></table></figure>
 <h3 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h3><blockquote>
 <p>一位一位的排，第一位排好找第二位排，每一位和后面的所有数依次比较，找到最小的值再交换，而非冒泡和相邻的数比较，整体类似，略过。</p>
 </blockquote>
@@ -487,33 +487,33 @@ i=8,arr[8]&lt;arr[4]交换
 此次m循环结束，下次m=m/3+1=2
 
 重复上次过程.....
-</code></pre><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function shellSort(arr)&#123;</div><div class="line">  let len = arr.length,increment = Math.floor(len/3+1),flag=false;</div><div class="line">  //设立flag是为了保证最后一次increment=1时只执行一次，避免死循环。</div><div class="line">  while(increment&gt;0&amp;&amp;!flag)&#123;</div><div class="line">    for(let i=increment;i&lt;len;i++)&#123;</div><div class="line">      if(arr[i]&lt;arr[i-increment])&#123;</div><div class="line">        let j = i - increment;</div><div class="line">        while(j&gt;-1&amp;&amp;arr[j+increment]&lt;arr[j])&#123;</div><div class="line">          swap(j+increment,j,arr);</div><div class="line">            j -= increment;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    let wsm =  Math.floor(increment/3+1);</div><div class="line">    increment == wsm?flag=true:increment= wsm;</div><div class="line">  &#125;</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">shellSort</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">  <span class="keyword">let</span> len = arr.length,increment = <span class="built_in">Math</span>.floor(len/<span class="number">3</span>+<span class="number">1</span>),flag=<span class="literal">false</span>;</div><div class="line">  <span class="comment">//设立flag是为了保证最后一次increment=1时只执行一次，避免死循环。</span></div><div class="line">  <span class="keyword">while</span>(increment&gt;<span class="number">0</span>&amp;&amp;!flag)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=increment;i&lt;len;i++)&#123;</div><div class="line">      <span class="keyword">if</span>(arr[i]&lt;arr[i-increment])&#123;</div><div class="line">        <span class="keyword">let</span> j = i - increment;</div><div class="line">        <span class="keyword">while</span>(j&gt;<span class="number">-1</span>&amp;&amp;arr[j+increment]&lt;arr[j])&#123;</div><div class="line">          swap(j+increment,j,arr);</div><div class="line">            j -= increment;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> wsm =  <span class="built_in">Math</span>.floor(increment/<span class="number">3</span>+<span class="number">1</span>);</div><div class="line">    increment == wsm?flag=<span class="literal">true</span>:increment= wsm;</div><div class="line">  &#125;</div><div class="line">    <span class="keyword">return</span> arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p><strong>不稳定,O(nlogn)</strong></p>
 <pre><code>最大堆4*,4,2 =&gt; 交换堆顶得2,4,4*=&gt;4，4*已换位。不稳定
 </code></pre><blockquote>
 <p>首先构建最大堆(每个父节点都比子节点要大，且为完全二叉树=&gt;层序遍历，<strong>空缺都连续出现在最下最右边</strong>)。显然对n个元素的堆，当 <code>[n/2]</code>节点到1节点都是子最大堆时，整个堆构成最大堆。所以需从大到小构建<code>[n/2]</code>个父节点的最大堆（层序遍历），下图按顺序则为建立3，2，1节点的最大堆。</p>
 </blockquote>
-<pre><code>  .        9
-  ／ \
-  7   8
- / \ / \
-3  1 5
+<pre><code>   9          5       8      1       7
+  ／ \       ／ \    ／ \    ／ \    ／ \
+  7   8     7   8   7   5   7   5  3   5  ......
+ / \ / \   / \     / \     ／      ／
+3  1 5    3  1    3   1    3      1
 </code></pre><blockquote>
 <p>构建完成之后顶部元素和尾元素换位置，最大元素排序完成，需要重新构建最大堆，此时节点<code>[(n-1)/2]</code>到节点2的最大堆已经构建完成，只需要建立根节点的最大堆即可。重复上述过程即可完成排序。</p>
 </blockquote>
 <p><strong>相同的大数排在前面的构建完最大堆，被交换到最后面了。显然此排序也不稳定。</strong></p>
 <p><strong>堆排序复杂度分析</strong><br>正式排序时，第i次取堆顶记录重建堆需要用O(logi)的时间(完全二叉树某节点到根的距离为logi+1)，且需要取n-1次堆顶记录，因此复杂度为O(nlogn)</p>
-<h4 id="代码如下-1"><a href="#代码如下-1" class="headerlink" title="代码如下"></a>代码如下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//主算法</div><div class="line">function heapSort(arr)&#123;</div><div class="line">  for(let i=parseInt(arr.length/2);i&gt;0;i--)&#123;</div><div class="line">    adjustHeap(i,arr,arr.length);</div><div class="line">  &#125;</div><div class="line">  for(let i=arr.length;i&gt;1;i--)&#123;</div><div class="line">  swap(0,i-1,arr);</div><div class="line">  adjustHeap(1,arr,i-1)</div><div class="line">&#125;</div><div class="line">  return arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//构建最大堆</div><div class="line">function adjustHeap(a,arr,len)&#123;</div><div class="line">   var max;</div><div class="line">   while(2*a&lt;=len)&#123;</div><div class="line">    //=的情况则arr[2a-1]是树中最后一个，arr[2a]越界。故不需再比较</div><div class="line">     max=2*a-1;</div><div class="line">     if(arr[2*a-1]&lt;arr[2*a]&amp;&amp;2*a&lt;len)max=2*a;</div><div class="line">     if(arr[a-1]&lt;arr[max])swap(a-1,max,arr);</div><div class="line">     a = max+1  </div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="代码如下-1"><a href="#代码如下-1" class="headerlink" title="代码如下"></a>代码如下</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//主算法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">heapSort</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="built_in">parseInt</span>(arr.length/<span class="number">2</span>);i&gt;<span class="number">0</span>;i--)&#123;</div><div class="line">    adjustHeap(i,arr,arr.length);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=arr.length;i&gt;<span class="number">1</span>;i--)&#123;</div><div class="line">  swap(<span class="number">0</span>,i<span class="number">-1</span>,arr);</div><div class="line">  adjustHeap(<span class="number">1</span>,arr,i<span class="number">-1</span>)</div><div class="line">&#125;</div><div class="line">  <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//构建最大堆</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">adjustHeap</span>(<span class="params">a,arr,len</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> max;</div><div class="line">   <span class="keyword">while</span>(<span class="number">2</span>*a&lt;=len)&#123;</div><div class="line">    <span class="comment">//=的情况则arr[2a-1]是树中最后一个，arr[2a]越界。故不需再比较</span></div><div class="line">     max=<span class="number">2</span>*a<span class="number">-1</span>;</div><div class="line">     <span class="keyword">if</span>(arr[<span class="number">2</span>*a<span class="number">-1</span>]&lt;arr[<span class="number">2</span>*a]&amp;&amp;<span class="number">2</span>*a&lt;len)max=<span class="number">2</span>*a;</div><div class="line">     <span class="keyword">if</span>(arr[a<span class="number">-1</span>]&lt;arr[max])swap(a<span class="number">-1</span>,max,arr);</div><div class="line">     a = max+<span class="number">1</span>  </div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><blockquote>
 <p>将原始数组切割成小数组，直到每个数组只有一个位置，接着将小数组合并成大数组直到只有一个数组。</p>
 </blockquote>
-<p><strong>稳定 O(nlogn)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">//拆分并递归合并。</div><div class="line">function mergeSort(arr)&#123;</div><div class="line">    let len = arr.length;</div><div class="line">    if(len==1)return arr;</div><div class="line">    let mid = Math.floor(length/2),</div><div class="line">        left = arr.slice(0,mid),</div><div class="line">        right = arr.slice(mid,length);</div><div class="line">    return merge(mergeSort(left),mergeSort(right));</div><div class="line">&#125;</div><div class="line"></div><div class="line">function merge(l,r)&#123;</div><div class="line">    let res = [],</div><div class="line">    i,j = 0;</div><div class="line">    //这里先把左／右中的一个数组排完。比如[1,4,8,9],[2,3,5,6]=&gt;res=[1,2,3,4,5,6]</div><div class="line">    while(i&lt;l.length&amp;&amp;j&lt;r.length)&#123;</div><div class="line">        if(l(i)&lt;r(j))&#123;</div><div class="line">            res.push(l[i++]);</div><div class="line">        &#125;else&#123;</div><div class="line">            res.push(r[j++]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    //再把未排完的排入8,9 push到res中。</div><div class="line">    while(i&lt;l.length)&#123;</div><div class="line">        res.push(l[i++]);</div><div class="line">    &#125;</div><div class="line">    while(j&lt;r.length)&#123;</div><div class="line">        res.push(r[j++]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>稳定 O(nlogn)</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//拆分并递归合并。</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> len = arr.length;</div><div class="line">    <span class="keyword">if</span>(len==<span class="number">1</span>)<span class="keyword">return</span> arr;</div><div class="line">    <span class="keyword">let</span> mid = <span class="built_in">Math</span>.floor(length/<span class="number">2</span>),</div><div class="line">        left = arr.slice(<span class="number">0</span>,mid),</div><div class="line">        right = arr.slice(mid,length);</div><div class="line">    <span class="keyword">return</span> merge(mergeSort(left),mergeSort(right));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">l,r</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> res = [],</div><div class="line">    i,j = <span class="number">0</span>;</div><div class="line">    <span class="comment">//这里先把左／右中的一个数组排完。比如[1,4,8,9],[2,3,5,6]=&gt;res=[1,2,3,4,5,6]</span></div><div class="line">    <span class="keyword">while</span>(i&lt;l.length&amp;&amp;j&lt;r.length)&#123;</div><div class="line">        <span class="keyword">if</span>(l(i)&lt;r(j))&#123;</div><div class="line">            res.push(l[i++]);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            res.push(r[j++]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//再把未排完的排入8,9 push到res中。</span></div><div class="line">    <span class="keyword">while</span>(i&lt;l.length)&#123;</div><div class="line">        res.push(l[i++]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(j&lt;r.length)&#123;</div><div class="line">        res.push(r[j++]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p><strong>不稳定 O(nlogn)</strong></p>
 <pre><code>3,5,5,1,2 =&gt; 第二个5做主元，第一次划分就导致不稳定。
 </code></pre><blockquote>
 <p>设定主元，每次调用，使得左边元素都小于主元，右边都大于主元。再以主元当前位置为界限，继续划分子数组。可以利用filter函数</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function quickSort(arr)&#123;</div><div class="line">    if(!arr.length)&#123;</div><div class="line">        return [];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    const [pivot,...rest] = arr;</div><div class="line">    return [...quickSort(rest.filter(x=&gt;x&lt;pivot)),pivot,...quickSort(rest.filter(x=&gt;x&gt;pivot))];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(!arr.length)&#123;</div><div class="line">        <span class="keyword">return</span> [];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> [pivot,...rest] = arr;</div><div class="line">    <span class="keyword">return</span> [...quickSort(rest.filter(<span class="function"><span class="params">x</span>=&gt;</span>x&lt;pivot)),pivot,...quickSort(rest.filter(<span class="function"><span class="params">x</span>=&gt;</span>x&gt;pivot))];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="快排复杂度分析"><a href="#快排复杂度分析" class="headerlink" title="快排复杂度分析"></a>快排复杂度分析</h4><p><strong>时间复杂度取决于递归的深度，若平衡二叉树，N个元素则深度logN,若斜树，深度N。</strong></p>
 <blockquote>
 <p>最优情况划分的很均匀，如果排序n个关键字，其递归深度为[logn]+1,即仅需递归logn次，需要时间为T(n)的话，第一次partion就是对整个数组扫描一遍，做n次比较。然后讲数组1分为2，各自还需要T(n/2)时间，故有下列等式推断</p>
@@ -578,6 +578,10 @@ T(n)&lt;=nT(1)+(logn)xn = O(nlogn)
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/06/30/数据结构基础（3）栈与队列/" rel="prev" title="数据结构基础（3）栈与队列">
+                数据结构基础（3）栈与队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -636,9 +640,9 @@ T(n)&lt;=nT(1)+(logn)xn = O(nlogn)
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="qiuqiu" />
-          <p class="site-author-name" itemprop="name">qiuqiu</p>
+               src="/images/avatar.jpeg"
+               alt="SuperShan" />
+          <p class="site-author-name" itemprop="name">SuperShan</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
           
@@ -648,7 +652,7 @@ T(n)&lt;=nT(1)+(logn)xn = O(nlogn)
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -670,7 +674,7 @@ T(n)&lt;=nT(1)+(logn)xn = O(nlogn)
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -732,7 +736,7 @@ T(n)&lt;=nT(1)+(logn)xn = O(nlogn)
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">qiuqiu</span>
+  <span class="author" itemprop="copyrightHolder">SuperShan</span>
 </div>
 
 
